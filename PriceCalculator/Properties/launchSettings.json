@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "PriceCalculator": {
+      "commandName": "Project",
+      "commandLineArgs": "..\\..\\..\\..\\Tests\\json\\cart-4560.json ..\\..\\..\\..\\Tests\\json\\base-prices.json"
+    }
+  }
+}

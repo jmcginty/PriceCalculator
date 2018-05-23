@@ -1,0 +1,16 @@
+[
+  {
+    "product-type": "hoodie",
+    "options": {
+      "colour": [ "white", "dark" ]
+    },
+    "base-price": 1
+  },
+  {
+    "product-type": "hoodie",
+    "options": {
+      "colour": [ "light", "grey" ]
+    },
+    "base-price": 2
+  },
+]

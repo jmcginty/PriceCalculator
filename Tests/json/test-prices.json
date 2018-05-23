@@ -1,0 +1,23 @@
+[
+  {
+    "product-type": "hoodie",
+    "options": {
+      "colour": ["white", "dark"],
+      "size": ["small", "medium"]
+    },
+    "base-price": 3800
+  },
+  {
+    "product-type": "sticker",
+    "options": {
+      "size": ["medium"]
+    },
+    "base-price": 583
+  },
+  {
+    "product-type": "leggings",
+    "options": {
+    },
+    "base-price": 5000
+  }
+]
