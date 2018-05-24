@@ -7,17 +7,9 @@ namespace Tests
 {
     public class CalculatorTest
     {
-        const string basePrices = @"..\..\..\..\Tests\json\base-prices.json";
-        const string cart11356 = @"..\..\..\..\Tests\json\cart-11356.json";
-        const string cart4560 = @"..\..\..\..\Tests\json\cart-4560.json";
-        const string cart9363 = @"..\..\..\..\Tests\json\cart-9363.json";
-        const string cart9500 = @"..\..\..\..\Tests\json\cart-9500.json";
-
-        const string testPrices = @"..\..\..\..\Tests\json\test-prices.json";
-        const string testCart = @"..\..\..\..\Tests\json\test-cart.json";
-
-        const string testPriceOptionMatch = @"..\..\..\..\Tests\json\test-priceOptionMatch.json";
-        const string testCartOptionMatch = @"..\..\..\..\Tests\json\test-cartOptionMatch.json";
+        // Using Path.DirectorySeparatorChar so that the code will cater for the different path
+        // separators on mac/windows/linux
+        string samplesFolder = string.Format(@"..{0}..{0}..{0}..{0}Tests{0}json", Path.DirectorySeparatorChar);
 
         [Fact]
         public void LessThanTwoArgumentsThrowsError()
@@ -40,7 +32,7 @@ namespace Tests
         {
             var args = new string[2];
             args[0] = @"thisfiledoesnotexist.json";
-            args[1] = testPrices;
+            args[1] = Path.Combine(samplesFolder, "test-prices.json");
             var ex = Assert.Throws<FileNotFoundException>(() => Calculator.Process(args));
         }
 
@@ -48,7 +40,7 @@ namespace Tests
         public void PriceFileNotFoundThrowsError()
         {
             var args = new string[2];
-            args[0] = testCart;
+            args[0] = Path.Combine(samplesFolder, "test-cart.json"); ;
             args[1] = @"thisfiledoesnotexist.json";
             var ex = Assert.Throws<FileNotFoundException>(() => Calculator.Process(args));
         }
@@ -63,7 +55,7 @@ namespace Tests
         [Fact]
         public void ThePricesObjectIsCorrectlyLoadedFromJson()
         {
-            var prices = Calculator.LoadPrices(testPrices);
+            var prices = Calculator.LoadPrices(Path.Combine(samplesFolder, "test-prices.json"));
             Assert.Equal(3, prices.Count);
 
             // Check product type with multiple options
@@ -91,7 +83,7 @@ namespace Tests
         [Fact]
         public void TheCartObjectIsCorrectlyLoadedFromJson()
         {
-            var cart = Calculator.LoadCart(testCart);
+            var cart = Calculator.LoadCart(Path.Combine(samplesFolder, "test-cart.json"));
             Assert.Equal(2, cart.Items.Count);
 
             Assert.Equal("hoodie", cart.Items[0].ProductType);
@@ -118,8 +110,8 @@ namespace Tests
         [Fact]
         public void IfACartItemHasAnOptionInThePriceFileItMustMatch()
         {
-            var prices = Calculator.LoadPrices(testPriceOptionMatch);
-            var cart = Calculator.LoadCart(testCartOptionMatch);
+            var prices = Calculator.LoadPrices(Path.Combine(samplesFolder, "test-priceOptionMatch.json"));
+            var cart = Calculator.LoadCart(Path.Combine(samplesFolder, "test-cartOptionMatch.json"));
 
             var price = Calculator.ApplyPricing(cart, prices);
 
@@ -141,12 +133,12 @@ namespace Tests
         [Fact]
         public void PriceIsCalculatedCorrectly()
         {
-            var prices = Calculator.LoadPrices(basePrices);
+            var prices = Calculator.LoadPrices(Path.Combine(samplesFolder, "base-prices.json"));
 
-            Assert.Equal(11356, Calculator.ApplyPricing(Calculator.LoadCart(cart11356), prices));
-            Assert.Equal(4560, Calculator.ApplyPricing(Calculator.LoadCart(cart4560), prices));
-            Assert.Equal(9363, Calculator.ApplyPricing(Calculator.LoadCart(cart9363), prices));
-            Assert.Equal(9500, Calculator.ApplyPricing(Calculator.LoadCart(cart9500), prices));
+            Assert.Equal(11356, Calculator.ApplyPricing(Calculator.LoadCart(Path.Combine(samplesFolder, "cart-11356.json")), prices));
+            Assert.Equal(4560, Calculator.ApplyPricing(Calculator.LoadCart(Path.Combine(samplesFolder, "cart-4560.json")), prices));
+            Assert.Equal(9363, Calculator.ApplyPricing(Calculator.LoadCart(Path.Combine(samplesFolder, "cart-9363.json")), prices));
+            Assert.Equal(9500, Calculator.ApplyPricing(Calculator.LoadCart(Path.Combine(samplesFolder, "cart-9500.json")), prices));
         }
     }
 }
