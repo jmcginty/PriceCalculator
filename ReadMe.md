@@ -10,8 +10,10 @@ To run the tests: `dotnet test .\Tests`
 
 To run the program: `dotnet run --project PriceCalculator cart.json prices.json`
 
-For example to try one of the sample cart and price files: `dotnet run --project PriceCalculator .\Tests\json\cart-11356.json .\Tests\json\base-prices.json`
+For example try one of the sample cart and price files:
 
+Windows: `dotnet run --project PriceCalculator .\Tests\json\cart-11356.json .\Tests\json\base-prices.json`
+MacOs/Linux: `dotnet run --project PriceCalculator ./Tests/json/cart-11356.json ./Tests/json/base-prices.json`
 Prices of the items in the cart are calculated as follows..
 
 For each item in the cart, 
