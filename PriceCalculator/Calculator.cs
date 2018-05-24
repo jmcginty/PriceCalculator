@@ -14,18 +14,19 @@ namespace PriceCalculator
         {
             if (args.Length != 2)
             {
-                throw new ArgumentException(@"Usage: PriceCalculator.exe cart.json prices.json");
+                Console.WriteLine("Usage: PriceCalculator.exe cart.json prices.json");
+                throw new ArgumentException("A cart file and a prices file are required to calculate total price");
             }
 
             var cart = LoadCart(args[0]);
             var prices = LoadPrices(args[1]);
 
-            var totalPrice = ApplyPricing(cart, prices);
+            var totalPrice = CalculatePrice(cart, prices);
 
             Console.WriteLine(totalPrice);
         }
 
-        public static int ApplyPricing(Cart cart, List<Price> prices)
+        public static int CalculatePrice(Cart cart, List<Price> prices)
         {
             var totalPrice = 0;
 
